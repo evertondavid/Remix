@@ -1,0 +1,29 @@
+pragma solidity >=0.4.22 <0.6.0;
+
+//nome do Contrato
+contract HelloWordEvertonDavid{
+    
+    // variaveis do tipo global / storage
+    string nome;
+    address issuer;
+    
+    //Função que esta construido o contrato
+    constructor (string memory _nome) public {
+        issuer = msg.sender;
+        nome = _nome;
+    }
+    
+    //View nao altera o valor do metodo
+    function getName() public view returns(string memory) {
+        return nome;
+    }
+    
+    // variavel MEMORY é uma variavel temporaria 
+    function setName(string memory _nome) public {
+        if (issuer != msg.sender){
+            // devolve o gas pra quem chamou 
+            revert();
+        }
+        nome = _nome;
+    }
+}
